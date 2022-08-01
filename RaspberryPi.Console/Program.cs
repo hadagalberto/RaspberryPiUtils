@@ -4,7 +4,7 @@ using Iot.Device.CpuTemperature;
 using Iot.Device.HardwareMonitor;
 
 using CpuTemperature cpuTemperature = new();
-using OpenHardwareMonitor openHardwareMonitor = new();
+var client = new CpuUsage();
 Console.WriteLine("Press any key to quit");
 
 while (!Console.KeyAvailable)
@@ -29,7 +29,13 @@ while (!Console.KeyAvailable)
         Console.WriteLine($"CPU temperature is not available");
     }
 
-    Console.WriteLine(openHardwareMonitor.GetCpuLoad().Percent);
+    var metrics = client.ReadCpuUsage();
+
+    Console.WriteLine("Core1: " + metrics.Core1Usage);
+    Console.WriteLine("Core2: " + metrics.Core2Usage);
+    Console.WriteLine("Core3: " + metrics.Core3Usage);
+    Console.WriteLine("Core4: " + metrics.Core4Usage);
+    Console.WriteLine("All Usage: " + metrics.CpuUsage);
 
     Thread.Sleep(1000);
 }
