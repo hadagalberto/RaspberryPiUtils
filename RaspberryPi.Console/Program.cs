@@ -2,6 +2,7 @@
 using System.Threading;
 using Iot.Device.CpuTemperature;
 using Iot.Device.HardwareMonitor;
+using RaspberryPi.Console;
 
 using CpuTemperature cpuTemperature = new();
 var client = new CpuUsage();
