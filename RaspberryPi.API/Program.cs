@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RaspberryPi.API;
 using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,7 +50,10 @@ app.MapGet("/getraspberryinfo", (HttpContext httpContext) =>
         temp = $"CPU temperature is not available";
     }
 
-    var retorno = new { Temperature = temp };
+    CpuUsage cpuUsage = new();
+    var usage = cpuUsage.ReadCpuUsage();
+
+    var retorno = new { Temperature = temp, Usage = usage };
 })
 .WithName("GetRaspberryInfo");
 
